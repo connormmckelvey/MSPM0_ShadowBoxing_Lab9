@@ -28,6 +28,7 @@ extern "C" void TIMG12_IRQHandler(void);
 // I suggest you try 80MHz, but if it doesn't work, switch to 40MHz
 
 //test comment
+//test comment 2
 
 void PLL_Init(void){ // set phase lock loop (PLL)
   // Clock_Init40MHz(); // run this line for 40MHz
