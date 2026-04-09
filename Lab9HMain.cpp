@@ -57,6 +57,7 @@ void TIMG12_IRQHandler(void){uint32_t pos,msg;
     GPIOB->DOUTTGL31_0 = GREEN; // toggle PB27 (minimally intrusive debugging)
   }
 }
+
 uint8_t TExaS_LaunchPadLogicPB27PB26(void){
   return (0x80|((GPIOB->DOUT31_0>>26)&0x03));
 }
