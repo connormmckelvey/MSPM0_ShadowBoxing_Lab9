@@ -29,6 +29,7 @@ extern "C" void TIMG12_IRQHandler(void);
 
 //test comment
 //test comment 2
+//test 3
 
 void PLL_Init(void){ // set phase lock loop (PLL)
   // Clock_Init40MHz(); // run this line for 40MHz
