@@ -21,19 +21,19 @@ void Game::init() {
     current_state = &states[START];
 }
 
-void Game::startLogic() {
+void Game::start_SU() {
     // Logic for button press to start
     // if (buttonPressed) transition to OFFENCE_ATK
 }
 
-void Game::offenceAtkLogic() {
+void Game::offenceAtk_SU() {
     // Logic for attacking
 }
 
 void Game::updateState() {
     // Execute the member function pointer of the current state
     // Syntax: (instancePointer->*functionPointer)()
-    if (current_state != 0 && current_state->behavior != 0) {
-        (this->*(current_state->behavior))();
+    if (current_state != 0 && current_state->updateState_func != 0) {
+        (this->*(current_state->updateState_func))();
     }
 }

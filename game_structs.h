@@ -26,6 +26,7 @@ class Player {
 class Game {
 private:
     State states[AMT_OF_STATES];
+    
 
 public:
     bool playing;
@@ -39,8 +40,8 @@ public:
     void updateState(); // The main loop calls this
 
     // The actual logic functions
-    void startLogic();
-    void offenceAtkLogic();
+    void start_SU();
+    void offenceAtk_SU();
 };
 
 #endif
