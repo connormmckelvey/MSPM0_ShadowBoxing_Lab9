@@ -1,16 +1,15 @@
 #include "game_structs.h"
-#include "ST7735"
+#include "../inc/ST7735.h"
 #include "Sound.h"
-#include "images.cpp"
 
 // --- State ---
 
 //change to size of bitmap -> function to be overwritten
-void display(Game* game){
-    ST7735_DrawBitmap(0, 0, image, 10, 10)
+void State::display(Game* game){
+    ST7735_DrawBitmap(0, 0, image, 10, 10);
 }
 
-void play_sound(Game* game){
+void State::play_sound(Game* game){
     // play the sound at wav_filepath
 }
 
@@ -26,7 +25,7 @@ void StartState::logic(Game* game) {
     }
 }
 
-StartState::display(Game* game){
+void StartState::display(Game* game){
     ST7735_DrawBitmap(0, 0, image, 160, 128);
 }
 
@@ -46,8 +45,8 @@ void Atk1State::logic(Game* game) {
     round_time--;
 }
 
-Atk1State::display(Game* game){
-    if (game->attacker == game->p1) {
+void Atk1State::display(Game* game){
+    if (game->attacker == &(game->p1)) {
         image = RED_PUNCHES_BLUE_IMAGE;
     }
     else{
@@ -73,8 +72,8 @@ void Atk2State::logic(Game* game) {
     round_time--;
 }
 
-Atk2State::display(Game* game){
-    if (game->attacker == game->p1) {
+void Atk2State::display(Game* game){
+    if (game->attacker == &game->p1) {
         image = RED_PUNCHES_BLUE_IMAGE;
     }
     else{
@@ -100,8 +99,8 @@ void Atk3State::logic(Game* game) {
     round_time--;
 }
 
-Atk3State::display(Game* game){
-    if (game->attacker == game->p1) {
+void Atk3State::display(Game* game){
+    if (game->attacker == &game->p1) {
         image = RED_PUNCHES_BLUE_IMAGE;
     }
     else{

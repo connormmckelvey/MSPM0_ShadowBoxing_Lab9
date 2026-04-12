@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <cstdint>
+#include "gameimages.h"
 
 #define ROUND_TIME 5 // in secs
 
@@ -52,6 +53,8 @@ private:
 public:
 Atk2State();
     void logic(Game* game) override;
+    void display(Game* game) override;
+    void play_sound(Game* game) override;
 };
 
 class Atk3State : public State {
@@ -60,12 +63,16 @@ private:
 public:
     Atk3State();
     void logic(Game* game) override;
+    void display(Game* game) override;
+    void play_sound(Game* game) override;
 };
 
 class WinState : public State {
 public:
-    Atk1State();
+    WinState();
     void logic(Game* game) override;
+    void display(Game* game) override;
+    void play_sound(Game* game) override;
 };
 
 class SwitchOffenceState : public State {
@@ -74,6 +81,8 @@ private:
 public:
     SwitchOffenceState();
     void logic(Game* game) override;
+    void display(Game* game) override;
+    void play_sound(Game* game) override;
 };
 
 class Player {
