@@ -11,6 +11,7 @@
 "./Switch.o"
 "./TExaS.o"
 "./Timer.o"
+"./game_structs.o"
 "./images/pipedreams/PipeSound.o"
 "./ticlang/startup_mspm0g3507_ticlang.o"
 "../mspm0g3507.cmd"

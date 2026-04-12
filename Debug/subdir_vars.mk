@@ -18,7 +18,8 @@ C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/SlidePot.cpp \
 ../Sound.cpp \
 ../Switch.cpp \
 C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/TExaS.cpp \
-C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/Timer.cpp 
+C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/Timer.cpp \
+../game_structs.cpp 
 
 CMD_SRCS += \
 ../mspm0g3507.cmd 
@@ -36,7 +37,8 @@ OBJS += \
 ./Sound.o \
 ./Switch.o \
 ./TExaS.o \
-./Timer.o 
+./Timer.o \
+./game_structs.o 
 
 CPP_DEPS += \
 ./Clock.d \
@@ -51,7 +53,8 @@ CPP_DEPS += \
 ./Sound.d \
 ./Switch.d \
 ./TExaS.d \
-./Timer.d 
+./Timer.d \
+./game_structs.d 
 
 OBJS__QUOTED += \
 "Clock.o" \
@@ -66,7 +69,8 @@ OBJS__QUOTED += \
 "Sound.o" \
 "Switch.o" \
 "TExaS.o" \
-"Timer.o" 
+"Timer.o" \
+"game_structs.o" 
 
 CPP_DEPS__QUOTED += \
 "Clock.d" \
@@ -81,7 +85,8 @@ CPP_DEPS__QUOTED += \
 "Sound.d" \
 "Switch.d" \
 "TExaS.d" \
-"Timer.d" 
+"Timer.d" \
+"game_structs.d" 
 
 CPP_SRCS__QUOTED += \
 "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/Clock.cpp" \
@@ -96,6 +101,7 @@ CPP_SRCS__QUOTED += \
 "../Sound.cpp" \
 "../Switch.cpp" \
 "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/TExaS.cpp" \
-"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/Timer.cpp" 
+"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/Timer.cpp" \
+"../game_structs.cpp" 
 
 

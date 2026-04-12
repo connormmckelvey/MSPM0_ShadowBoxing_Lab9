@@ -19,6 +19,8 @@
 #include "Switch.h"
 #include "Sound.h"
 #include "images/images.h"
+
+#include "game_structs.h"
 extern "C" void __disable_irq(void);
 extern "C" void __enable_irq(void);
 extern "C" void TIMG12_IRQHandler(void);
@@ -27,7 +29,6 @@ extern "C" void TIMG12_IRQHandler(void);
 // however, the ADC seems to work on my boards at 80 MHz
 // I suggest you try 80MHz, but if it doesn't work, switch to 40MHz
 
-Game game;
 
 void PLL_Init(void){ // set phase lock loop (PLL)
   // Clock_Init40MHz(); // run this line for 40MHz
@@ -44,6 +45,8 @@ uint32_t Random(uint32_t n){
 }
 
 SlidePot Sensor(1500,0); // copy calibration from Lab 7
+Game game;
+
 
 // games  engine runs at 30Hz
 void TIMG12_IRQHandler(void){uint32_t pos,msg;
@@ -51,8 +54,8 @@ void TIMG12_IRQHandler(void){uint32_t pos,msg;
     GPIOB->DOUTTGL31_0 = GREEN; // toggle PB27 (minimally intrusive debugging)
     GPIOB->DOUTTGL31_0 = GREEN; // toggle PB27 (minimally intrusive debugging)
 // game engine goes here
-    game.state.get_input();
-    game.state.handle_input();
+    game.get_inputs();
+    game.updateState();
     // 1) sample slide pot
     // 2) read input switches
     // 3) move sprites
@@ -211,11 +214,12 @@ int main5(void){ // final main
     // initialize interrupts on TimerG12 at 30 Hz
   
   // initialize all data structures
+  game.init();
   __enable_irq();
 
   while(1){
-    game.state.display();
-    game.state.play_sound();
+    game.current_state->display(&game);
+    game.current_state->play_sound(&game);
     
     // wait for semaphore
        // clear semaphore
