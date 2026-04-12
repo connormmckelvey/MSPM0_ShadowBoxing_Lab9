@@ -31,20 +31,26 @@ public:
 
 class StartState : public State {
 public:
+    StartState();
     void logic(Game* game) override;
+    void display(Game* game) override;
+    void play_sound(Game* game) override;
 };
 
 class Atk1State : public State {
 private:
     int round_time = ROUND_TIME * 30;
 public:
+    Atk1State();
     void logic(Game* game) override;
-};
+    void display(Game* game) override;
+    void play_sound(Game* game) override;};
 
 class Atk2State : public State {
 private:
     int round_time = ROUND_TIME * 30;
 public:
+Atk2State();
     void logic(Game* game) override;
 };
 
@@ -52,11 +58,13 @@ class Atk3State : public State {
 private:
     int round_time = ROUND_TIME * 30;
 public:
+    Atk3State();
     void logic(Game* game) override;
 };
 
 class WinState : public State {
 public:
+    Atk1State();
     void logic(Game* game) override;
 };
 
@@ -64,6 +72,7 @@ class SwitchOffenceState : public State {
 private:
     int state_time = 30 * 2;
 public:
+    SwitchOffenceState();
     void logic(Game* game) override;
 };
 

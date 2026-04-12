@@ -1,6 +1,7 @@
 #include "game_structs.h"
 #include "ST7735"
 #include "Sound.h"
+#include "images.cpp"
 
 // --- State ---
 
@@ -15,10 +16,18 @@ void play_sound(Game* game){
 
 
 // --- StartState ---
+StartState::StartState(){
+    image = START_SCREEN_IMAGE;
+}
+
 void StartState::logic(Game* game) {
     if (game->button1 == 1) {
         game->current_state = game->states[ATK1];
     }
+}
+
+StartState::display(Game* game){
+    ST7735_DrawBitmap(0, 0, image, 160, 128);
 }
 
 // --- Atk1State ---
@@ -35,6 +44,16 @@ void Atk1State::logic(Game* game) {
         }
     }
     round_time--;
+}
+
+Atk1State::display(Game* game){
+    if (game->attacker == game->p1) {
+        image = RED_PUNCHES_BLUE_IMAGE;
+    }
+    else{
+        image = RED_PUNCHES_BLUE_IMAGE;
+    }
+    ST7735_DrawBitmap(0, 0, image, 160, 128);
 }
 
 // --- Atk2State ---
@@ -54,6 +73,16 @@ void Atk2State::logic(Game* game) {
     round_time--;
 }
 
+Atk2State::display(Game* game){
+    if (game->attacker == game->p1) {
+        image = RED_PUNCHES_BLUE_IMAGE;
+    }
+    else{
+        image = RED_PUNCHES_BLUE_IMAGE;
+    }
+    ST7735_DrawBitmap(0, 0, image, 160, 128);
+}
+
 // --- Atk3State ---
 void Atk3State::logic(Game* game) {
     if (round_time == 0) {
@@ -69,6 +98,16 @@ void Atk3State::logic(Game* game) {
         }
     }
     round_time--;
+}
+
+Atk3State::display(Game* game){
+    if (game->attacker == game->p1) {
+        image = RED_PUNCHES_BLUE_IMAGE;
+    }
+    else{
+        image = RED_PUNCHES_BLUE_IMAGE;
+    }
+    ST7735_DrawBitmap(0, 0, image, 160, 128);
 }
 
 // --- WinState ---
