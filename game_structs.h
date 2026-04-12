@@ -1,17 +1,46 @@
-#define UP 0
-#define DOWN 1
-#define LEFT 2
-#define RIGHT 3
+#ifndef GAME_H
+#define GAME_H
 
-class State{}
+// Using a proper constant for the array size
+#define AMT_OF_STATES 2 
 
-class Player{}
+enum StateIndex {
+    START = 0,
+    OFFENCE_ATK = 1
+};
 
-class Game{
-    public:
-        State state;
-        int[2] prevAttacks;
-        Player* attacker;
-        Player p1;
-        Player p2;
-}
+class State {
+public:
+    const char* state_name;
+    unsigned short* image;    // Using unsigned short for uint16
+    const char* wav_filepath;
+    
+    // This stores WHICH Game function this state uses
+    void (class Game::*updateState_func)(); 
+};
+
+class Player {
+    // Player data here
+};
+
+class Game {
+private:
+    State states[AMT_OF_STATES];
+
+public:
+    bool playing;
+    State* current_state; // Pointer to the active state in the array
+    int prevAttacks[2];
+    Player* attacker;
+    Player p1;
+    Player p2;
+
+    void init();
+    void updateState(); // The main loop calls this
+
+    // The actual logic functions
+    void startLogic();
+    void offenceAtkLogic();
+};
+
+#endif

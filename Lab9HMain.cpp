@@ -27,9 +27,7 @@ extern "C" void TIMG12_IRQHandler(void);
 // however, the ADC seems to work on my boards at 80 MHz
 // I suggest you try 80MHz, but if it doesn't work, switch to 40MHz
 
-//test comment
-//test comment 2
-//test 3
+Game game;
 
 void PLL_Init(void){ // set phase lock loop (PLL)
   // Clock_Init40MHz(); // run this line for 40MHz
@@ -53,6 +51,8 @@ void TIMG12_IRQHandler(void){uint32_t pos,msg;
     GPIOB->DOUTTGL31_0 = GREEN; // toggle PB27 (minimally intrusive debugging)
     GPIOB->DOUTTGL31_0 = GREEN; // toggle PB27 (minimally intrusive debugging)
 // game engine goes here
+    game.state.get_input();
+    game.state.handle_input();
     // 1) sample slide pot
     // 2) read input switches
     // 3) move sprites
@@ -214,6 +214,9 @@ int main5(void){ // final main
   __enable_irq();
 
   while(1){
+    game.state.display();
+    game.state.play_sound();
+    
     // wait for semaphore
        // clear semaphore
        // update ST7735R
