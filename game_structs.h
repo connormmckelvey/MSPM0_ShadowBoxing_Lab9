@@ -2,9 +2,9 @@
 #define GAME_H
 
 #include <cstdint>
-#include "gameimages.h"
 
 #define ROUND_TIME 5 // in secs
+#define SWITCH_TIME 5
 
 enum StateIndex {
     START = 0,
@@ -25,6 +25,7 @@ public:
     unsigned short* image;
     char* wav_filepath;
 
+    virtual void onEnter(Game* game);
     virtual void logic(Game* game);
     virtual void display(Game* game);
     virtual void play_sound(Game* game);
@@ -33,6 +34,7 @@ public:
 class StartState : public State {
 public:
     StartState();
+    void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
     void play_sound(Game* game) override;
@@ -43,6 +45,7 @@ private:
     int round_time = ROUND_TIME * 30;
 public:
     Atk1State();
+    void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
     void play_sound(Game* game) override;};
@@ -52,6 +55,7 @@ private:
     int round_time = ROUND_TIME * 30;
 public:
 Atk2State();
+void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
     void play_sound(Game* game) override;
@@ -62,6 +66,7 @@ private:
     int round_time = ROUND_TIME * 30;
 public:
     Atk3State();
+    void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
     void play_sound(Game* game) override;
@@ -70,6 +75,7 @@ public:
 class WinState : public State {
 public:
     WinState();
+    void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
     void play_sound(Game* game) override;
@@ -77,9 +83,10 @@ public:
 
 class SwitchOffenceState : public State {
 private:
-    int state_time = 30 * 2;
+    int state_time = 30 * SWITCH_TIME;
 public:
     SwitchOffenceState();
+    void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
     void play_sound(Game* game) override;
@@ -111,6 +118,7 @@ public:
     void get_inputs();
     void updateState();
     uint8_t directions();
+    bool switchStates(int state_index);
 };
 
 #endif
