@@ -23,12 +23,18 @@
 #define ENGLISH 0
 #define SPANISH 1
 
+#define LEFT 0
+#define RIGHT 1
+#define UP 2
+#define DOWN 3
+
 enum StateIndex {
     START = 0,
     ATK1,
     ATK2,
     ATK3,
     WIN,
+    ROUND_FEEDBACK,
     SWITCH_OFFENCE,
     AMT_OF_STATES
 };
@@ -112,6 +118,17 @@ public:
     void play_sound(Game* game) override;
 };
 
+class RoundFeedbackState : public State {
+private:
+    int state_time = 30 * SWITCH_TIME;
+public:
+    RoundFeedbackState();
+    void onEnter(Game* game) override;
+    void logic(Game* game) override;
+    void display(Game* game) override;
+    void play_sound(Game* game) override;
+};
+
 class Player {
     // Player data here
 };
@@ -131,6 +148,7 @@ public:
     int button1 = 0;
     int button2 = 0;
     State* current_state;
+    uint8_t prevAttackIndex = 0;
     uint8_t prevAttacks[2];
     Player* attacker;
     Player p1;

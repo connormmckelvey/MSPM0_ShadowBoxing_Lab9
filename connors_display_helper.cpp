@@ -65,3 +65,10 @@ uint32_t CDH_DrawString(uint16_t x, uint16_t y, char *pt, int16_t textColor, int
   }
   return count;  // number of characters printed
 }
+
+void CDH_OutUDec(uint16_t x, uint16_t y, uint32_t n, int16_t textColor, int bgColor, int size){
+    char message[11];
+    snprintf(message, sizeof(message), "%lu", (unsigned long)n);
+    CDH_DrawString(x, y, message, textColor, bgColor, size);
+}
+

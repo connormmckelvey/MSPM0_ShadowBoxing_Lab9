@@ -29,6 +29,7 @@ C_SRCS += \
 ../NES\ -\ Punch-Out!!\ -\ Miscellaneous\ -\ Boxing\ Rings.c \
 ../gameimages.c \
 ../valvano.c \
+../valvano_punch.c \
 ../valvano_rgb565.c \
 ../yerballi.c \
 ../yerballi_rgb565.c 
@@ -37,6 +38,7 @@ C_DEPS += \
 ./NES\ -\ Punch-Out!!\ -\ Miscellaneous\ -\ Boxing\ Rings.d \
 ./gameimages.d \
 ./valvano.d \
+./valvano_punch.d \
 ./valvano_rgb565.d \
 ./yerballi.d \
 ./yerballi_rgb565.d 
@@ -60,6 +62,7 @@ OBJS += \
 ./game_structs.o \
 ./gameimages.o \
 ./valvano.o \
+./valvano_punch.o \
 ./valvano_rgb565.o \
 ./yerballi.o \
 ./yerballi_rgb565.o 
@@ -100,6 +103,7 @@ OBJS__QUOTED += \
 "game_structs.o" \
 "gameimages.o" \
 "valvano.o" \
+"valvano_punch.o" \
 "valvano_rgb565.o" \
 "yerballi.o" \
 "yerballi_rgb565.o" 
@@ -108,6 +112,7 @@ C_DEPS__QUOTED += \
 "NES - Punch-Out!! - Miscellaneous - Boxing Rings.d" \
 "gameimages.d" \
 "valvano.d" \
+"valvano_punch.d" \
 "valvano_rgb565.d" \
 "yerballi.d" \
 "yerballi_rgb565.d" 
@@ -150,6 +155,7 @@ C_SRCS__QUOTED += \
 "../NES - Punch-Out!! - Miscellaneous - Boxing Rings.c" \
 "../gameimages.c" \
 "../valvano.c" \
+"../valvano_punch.c" \
 "../valvano_rgb565.c" \
 "../yerballi.c" \
 "../yerballi_rgb565.c" 

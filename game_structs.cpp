@@ -73,13 +73,14 @@ Atk1State::Atk1State(){}
 void Atk1State::onEnter(Game* game){
     first_display = true;
     round_time = 30 * ROUND_TIME;
+    game->prevAttackIndex = 0;
     if (game->attacker == &(game->p1)) {
-        image = valvano[1];
+        image = valvano[0];
         image_height = VALVANO_FRAME_HEIGHT;
         image_width = VALVANO_FRAME_WIDTH;
     }
     else{
-        image = yerballi[1];
+        image = yerballi[0];
         image_height = YERBALLI_FRAME_HEIGHT;
         image_width = YERBALLI_FRAME_WIDTH;    
     }
@@ -88,9 +89,9 @@ void Atk1State::onEnter(Game* game){
 void Atk1State::logic(Game* game) {
     if (round_time == 0) {
         uint8_t direction_went = game->directions();
+        game->prevAttacks[0] = direction_went;
         if (direction_went != (uint8_t)-1) {
-            game->prevAttacks[0] = direction_went;
-            game->switchStates(ATK2);
+            game->switchStates(ROUND_FEEDBACK);
         } else {
             game->switchStates(SWITCH_OFFENCE);
         }
@@ -106,10 +107,12 @@ void Atk1State::display(Game* game){
     }
     CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height);
     if(game->language == ENGLISH){
-        CDH_DrawString(0, 12, "Combo: 0   Punch!", ST7735_BLACK, 0x8BE0, 1);
+        CDH_DrawString(0, 12, "Combo: 0", ST7735_BLACK, 0x8BE0, 1);
+        CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
     }
     else{
         CDH_DrawString(0, 12, "ATK1", ST7735_BLACK, 0x8BE0, 1);
+        CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
     }
 
 }
@@ -124,6 +127,7 @@ Atk2State::Atk2State(){};
 void Atk2State::onEnter(Game* game){
     first_display = true;
     round_time = 30 * ROUND_TIME;
+    game->prevAttackIndex = 1;
 }
 
 void Atk2State::logic(Game* game) {
@@ -231,6 +235,17 @@ SwitchOffenceState::SwitchOffenceState(){};
 void SwitchOffenceState::onEnter(Game* game){
     first_display = true;
     state_time = 30 * SWITCH_TIME;
+    // if yerballi atking valano
+    if (game->attacker == &(game->p1)) {
+        image = valvano[0];
+        image_height = VALVANO_FRAME_HEIGHT;
+        image_width = VALVANO_FRAME_WIDTH;
+    }
+    else{
+        image = yerballi[0];
+        image_height = YERBALLI_FRAME_HEIGHT;
+        image_width = YERBALLI_FRAME_WIDTH;    
+    }
 }
 
 void SwitchOffenceState::logic(Game* game) {
@@ -250,13 +265,94 @@ void SwitchOffenceState::logic(Game* game) {
 
 void SwitchOffenceState::display(Game* game){
     if (first_display) {
-        ST7735_FillScreen(ST7735_GREEN);
+        ST7735_FillScreen(0x8BE0);
+        ST7735_DrawBitmap(0,BOXING_RING_BG_FRAME_HEIGHT - 5,boxing_ring_bg[0],BOXING_RING_BG_FRAME_WIDTH,BOXING_RING_BG_FRAME_HEIGHT);
         first_display = false;
     }
-        ST7735_DrawString(0, 0, "SWITCH", ST7735_WHITE);
+    CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height);
+    if(game->language == ENGLISH){
+        CDH_DrawString(0, 12, "Blocked!", ST7735_BLACK, 0x8BE0, 1);
+        CDH_DrawString(14, 7, "!", ST7735_BLACK, 0x8BE0,3);
+    }
+    else{
+        CDH_DrawString(0, 12, "ATK1", ST7735_BLACK, 0x8BE0, 1);
+    }
 }
 
 void SwitchOffenceState::play_sound(Game* game){
+    
+}
+
+// --- RoundFeedback ---
+RoundFeedbackState::RoundFeedbackState(){};
+
+void RoundFeedbackState::onEnter(Game* game){
+    first_display = true;
+    state_time = 30 * SWITCH_TIME;
+    // if yerballi atking valano
+    if (game->attacker == &(game->p1)) {
+        // if last attack went up
+        if (game->prevAttacks[game->prevAttackIndex] == RIGHT) {
+            image = valvano[1];
+        }
+        else if (game->prevAttacks[game->prevAttackIndex] == LEFT) {
+            image = valvano[2];
+        }
+        // no punch
+        else{
+            image = valvano[0];
+        }
+        image_height = VALVANO_FRAME_HEIGHT;
+        image_width = VALVANO_FRAME_WIDTH;
+    }
+    else{
+        // if last attack went up
+        if (game->prevAttacks[game->prevAttackIndex] == RIGHT) {
+            image = yerballi[1];
+        }
+        else if (game->prevAttacks[game->prevAttackIndex] == LEFT) {
+            image = yerballi[2];
+        }
+        // no punch
+        else{
+            image = yerballi[0];
+        }
+        image_height = YERBALLI_FRAME_HEIGHT;
+        image_width = YERBALLI_FRAME_WIDTH;    
+    }
+}
+
+// waits state_time and then goes to next attack state
+void RoundFeedbackState::logic(Game* game) {
+    if (state_time != 0) {
+        state_time--;
+    } else {
+        if (game->prevAttackIndex == 0) {
+            game->switchStates(ATK2);
+        }
+        else if (game->prevAttackIndex == 1) {
+            game->switchStates(ATK3);
+        }
+    }
+}
+
+void RoundFeedbackState::display(Game* game){
+    if (first_display) {
+        ST7735_FillScreen(0x8BE0);
+        ST7735_DrawBitmap(0,BOXING_RING_BG_FRAME_HEIGHT - 5,boxing_ring_bg[0],BOXING_RING_BG_FRAME_WIDTH,BOXING_RING_BG_FRAME_HEIGHT);
+        first_display = false;
+    }
+    CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height);
+    if(game->language == ENGLISH){
+        CDH_DrawString(0, 12, "Prepare for Next Round!", ST7735_BLACK, 0x8BE0, 1);
+        CDH_DrawString(12, 7, "AH!", ST7735_BLACK, 0x8BE0,3);
+    }
+    else{
+        CDH_DrawString(0, 12, "ATK1", ST7735_BLACK, 0x8BE0, 1);
+    }
+}
+
+void RoundFeedbackState::play_sound(Game* game){
     
 }
 

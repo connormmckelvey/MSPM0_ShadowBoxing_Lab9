@@ -16,6 +16,7 @@
 "./game_structs.o"
 "./gameimages.o"
 "./valvano.o"
+"./valvano_punch.o"
 "./valvano_rgb565.o"
 "./yerballi.o"
 "./yerballi_rgb565.o"
