@@ -20,6 +20,7 @@
 #include "Sound.h"
 #include "images/images.h"
 
+
 #include "game_structs.h"
 extern "C" void __disable_irq(void);
 extern "C" void __enable_irq(void);
@@ -206,6 +207,7 @@ int main(void){ // final main
   LaunchPad_Init();
   ST7735_InitPrintf(INITR_BLACKTAB); // INITR_REDTAB for AdaFruit, INITR_BLACKTAB for HiLetGo
   ST7735_FillScreen(ST7735_BLACK);
+  ST7735_SetRotation(3);
   Sensor.Init(); // PB18 = ADC1 channel 5, slidepot
   Switch_Init(); // initialize switches
   LED_Init();    // initialize LED

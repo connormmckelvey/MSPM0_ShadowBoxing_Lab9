@@ -1,17 +1,25 @@
 #include "game_structs.h"
 #include "../inc/ST7735.h"
 #include "Sound.h"
-#include "gameimages.h"
+#include "gameimages.c"
+#include "../inc/LaunchPad.h"
+#include "connors_display_helper.h"
 
 // --- State ---
 
 //change to size of bitmap -> function to be overwritten
-void State::onEnter(Game* game){}
+void State::onEnter(Game* game){
+    first_display = true;
+}
 
 void State::logic(Game* game){}
 
 void State::display(Game* game){
-    ST7735_DrawBitmap(0, 0, image, 10, 10);
+    if (first_display) {
+        ST7735_FillScreen(ST7735_GREEN);
+        first_display = false;
+    }
+    ST7735_DrawBitmap(0, 0, image, 0, 10);
 }
 
 void State::play_sound(Game* game){
@@ -21,22 +29,38 @@ void State::play_sound(Game* game){
 
 // --- StartState ---
 StartState::StartState(){
-    //image = START_SCREEN_IMAGE;
+    image = cover_splash[0];
+    image_width = COVER_SPLASH_FRAME_WIDTH;
+    image_height = COVER_SPLASH_FRAME_HEIGHT;
 }
 
 void StartState::onEnter(Game* game){
-    
+    first_display = true;
 }
 
 void StartState::logic(Game* game) {
     if (game->button1 == 1) {
-        game->current_state = game->states[ATK1];
+        game->language = ENGLISH;
+        game->switchStates(ATK1);
+    }
+    if (game->button2 == 1) {
+        game->language = SPANISH;
+        game->switchStates(ATK1);
     }
 }
 
 void StartState::display(Game* game){
-        ST7735_DrawString(0, 0, "START", ST7735_WHITE);
-    //ST7735_DrawBitmap(0, 0, image, 160, 128);
+    if (first_display) {
+        ST7735_FillScreen(ST7735_BLACK);
+        first_display = false;
+    }
+    // ST7735_DrawPixel(1,1,ST7735_RED);      //top left where pin 8
+    // ST7735_DrawPixel(100,1,ST7735_YELLOW); //top right (where 16 is on screen)
+    // ST7735_DrawPixel(100,100,ST7735_BLUE); // bottom right (where pin 1 is on the 16 side)
+    // ST7735_DrawPixel(1,100,ST7735_GREEN);  // bottom left
+    CDH_DrawBitmap2x(-10, 100, image, image_width, image_height);
+    ST7735_DrawString(0, 11, "Press S1 for English", ST7735_WHITE);
+    ST7735_DrawString(0, 12, "Press S2 for Espanol", ST7735_WHITE);
 }
 
 void StartState::play_sound(Game* game){
@@ -47,7 +71,18 @@ void StartState::play_sound(Game* game){
 Atk1State::Atk1State(){}
 
 void Atk1State::onEnter(Game* game){
+    first_display = true;
     round_time = 30 * ROUND_TIME;
+    if (game->attacker == &(game->p1)) {
+        image = valvano[1];
+        image_height = VALVANO_FRAME_HEIGHT;
+        image_width = VALVANO_FRAME_WIDTH;
+    }
+    else{
+        image = yerballi[1];
+        image_height = YERBALLI_FRAME_HEIGHT;
+        image_width = YERBALLI_FRAME_WIDTH;    
+    }
 }
 
 void Atk1State::logic(Game* game) {
@@ -64,14 +99,19 @@ void Atk1State::logic(Game* game) {
 }
 
 void Atk1State::display(Game* game){
-    // if (game->attacker == &(game->p1)) {
-    //     image = RED_PUNCHES_BLUE_IMAGE;
-    // }
-    // else{
-    //     image = RED_PUNCHES_BLUE_IMAGE;
-    // }
-    // ST7735_DrawBitmap(0, 0, image, 160, 128);
-    ST7735_DrawString(0, 0, "ATK1", ST7735_WHITE);
+    if (first_display) {
+        ST7735_FillScreen(0x8BE0);
+        ST7735_DrawBitmap(0,BOXING_RING_BG_FRAME_HEIGHT - 5,boxing_ring_bg[0],BOXING_RING_BG_FRAME_WIDTH,BOXING_RING_BG_FRAME_HEIGHT);
+        first_display = false;
+    }
+    CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height);
+    if(game->language == ENGLISH){
+        CDH_DrawString(0, 12, "Combo: 0   Punch!", ST7735_BLACK, 0x8BE0, 1);
+    }
+    else{
+        CDH_DrawString(0, 12, "ATK1", ST7735_BLACK, 0x8BE0, 1);
+    }
+
 }
 
 void Atk1State::play_sound(Game* game){
@@ -82,6 +122,7 @@ void Atk1State::play_sound(Game* game){
 Atk2State::Atk2State(){};
 
 void Atk2State::onEnter(Game* game){
+    first_display = true;
     round_time = 30 * ROUND_TIME;
 }
 
@@ -100,6 +141,10 @@ void Atk2State::logic(Game* game) {
 }
 
 void Atk2State::display(Game* game){
+    if (first_display) {
+        ST7735_FillScreen(ST7735_GREEN);
+        first_display = false;
+    }
     // if (game->attacker == &game->p1) {
     //     image = RED_PUNCHES_BLUE_IMAGE;
     // }
@@ -118,6 +163,7 @@ void Atk2State::play_sound(Game* game){
 Atk3State::Atk3State(){};
 
 void Atk3State::onEnter(Game* game){
+    first_display = true;
     round_time = 30 * ROUND_TIME;
 }
 
@@ -136,6 +182,10 @@ void Atk3State::logic(Game* game) {
 }
 
 void Atk3State::display(Game* game){
+    if (first_display) {
+        ST7735_FillScreen(ST7735_GREEN);
+        first_display = false;
+    }
     // if (game->attacker == &game->p1) {
     //     image = RED_PUNCHES_BLUE_IMAGE;
     // }
@@ -154,6 +204,7 @@ void Atk3State::play_sound(Game* game){
 WinState::WinState(){};
 
 void WinState::onEnter(Game* game){
+    first_display = true;
 }
 
 void WinState::logic(Game* game) {
@@ -163,6 +214,10 @@ void WinState::logic(Game* game) {
 }
 
 void WinState::display(Game* game){
+    if (first_display) {
+        ST7735_FillScreen(ST7735_GREEN);
+        first_display = false;
+    }
         ST7735_DrawString(0, 0, "WIN", ST7735_WHITE);
 }
 
@@ -174,6 +229,7 @@ void WinState::play_sound(Game* game){
 SwitchOffenceState::SwitchOffenceState(){};
 
 void SwitchOffenceState::onEnter(Game* game){
+    first_display = true;
     state_time = 30 * SWITCH_TIME;
 }
 
@@ -193,6 +249,10 @@ void SwitchOffenceState::logic(Game* game) {
 }
 
 void SwitchOffenceState::display(Game* game){
+    if (first_display) {
+        ST7735_FillScreen(ST7735_GREEN);
+        first_display = false;
+    }
         ST7735_DrawString(0, 0, "SWITCH", ST7735_WHITE);
 }
 
@@ -209,12 +269,17 @@ void Game::init() {
     states[WIN]           = &win_s;
     states[SWITCH_OFFENCE] = &switch_offence_s;
 
-    current_state = states[ATK1];
+    current_state = states[START];
     attacker = &p1;
+
+    IOMUX->SECCFG.PINCM[PB21INDEX] = 0x00040081;
+    IOMUX->SECCFG.PINCM[PB18INDEX] = 0x00040081;
 }
 
 //gets input from various hardware and stores in member vars in the Game class
 void Game::get_inputs() {
+    button1 = ((GPIOA->DIN31_0 >> 18) & 0x1);
+    button2 = !((GPIOB->DIN31_0 >> 21) & 0x1);
 }
 
 void Game::updateState() {

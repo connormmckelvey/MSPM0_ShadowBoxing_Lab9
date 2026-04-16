@@ -1,10 +1,27 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <cstdint>
+#include <stdio.h>
+#include <stdint.h>
+#include <ti/devices/msp/msp.h>
+#include "../inc/ST7735.h"
+#include "../inc/Clock.h"
+#include "../inc/LaunchPad.h"
+#include "../inc/TExaS.h"
+#include "../inc/Timer.h"
+#include "../inc/SlidePot.h"
+#include "../inc/DAC5.h"
+#include "SmallFont.h"
+#include "LED.h"
+#include "Switch.h"
+#include "Sound.h"
+#include "images/images.h"
 
 #define ROUND_TIME 5 // in secs
 #define SWITCH_TIME 5
+
+#define ENGLISH 0
+#define SPANISH 1
 
 enum StateIndex {
     START = 0,
@@ -22,8 +39,11 @@ class Game;
 
 class State {
 public:
-    unsigned short* image;
+    const uint16_t* image;
+    int image_width;
+    int image_height;
     char* wav_filepath;
+    bool first_display = true;
 
     virtual void onEnter(Game* game);
     virtual void logic(Game* game);
@@ -105,9 +125,11 @@ private:
     WinState win_s;
     SwitchOffenceState switch_offence_s;
 public:
+    int language; // 0 for english, 1 for spanish
     State* states[AMT_OF_STATES];
     bool playing;
     int button1 = 0;
+    int button2 = 0;
     State* current_state;
     uint8_t prevAttacks[2];
     Player* attacker;

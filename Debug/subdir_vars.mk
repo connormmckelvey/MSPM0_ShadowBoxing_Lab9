@@ -19,10 +19,27 @@ C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/SlidePot.cpp \
 ../Switch.cpp \
 C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/TExaS.cpp \
 C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/Timer.cpp \
+../connors_display_helper.cpp \
 ../game_structs.cpp 
 
 CMD_SRCS += \
 ../mspm0g3507.cmd 
+
+C_SRCS += \
+../NES\ -\ Punch-Out!!\ -\ Miscellaneous\ -\ Boxing\ Rings.c \
+../gameimages.c \
+../valvano.c \
+../valvano_rgb565.c \
+../yerballi.c \
+../yerballi_rgb565.c 
+
+C_DEPS += \
+./NES\ -\ Punch-Out!!\ -\ Miscellaneous\ -\ Boxing\ Rings.d \
+./gameimages.d \
+./valvano.d \
+./valvano_rgb565.d \
+./yerballi.d \
+./yerballi_rgb565.d 
 
 OBJS += \
 ./Clock.o \
@@ -30,6 +47,7 @@ OBJS += \
 ./LED.o \
 ./Lab9HMain.o \
 ./LaunchPad.o \
+./NES\ -\ Punch-Out!!\ -\ Miscellaneous\ -\ Boxing\ Rings.o \
 ./SPI.o \
 ./ST7735.o \
 ./SlidePot.o \
@@ -38,7 +56,13 @@ OBJS += \
 ./Switch.o \
 ./TExaS.o \
 ./Timer.o \
-./game_structs.o 
+./connors_display_helper.o \
+./game_structs.o \
+./gameimages.o \
+./valvano.o \
+./valvano_rgb565.o \
+./yerballi.o \
+./yerballi_rgb565.o 
 
 CPP_DEPS += \
 ./Clock.d \
@@ -54,6 +78,7 @@ CPP_DEPS += \
 ./Switch.d \
 ./TExaS.d \
 ./Timer.d \
+./connors_display_helper.d \
 ./game_structs.d 
 
 OBJS__QUOTED += \
@@ -62,6 +87,7 @@ OBJS__QUOTED += \
 "LED.o" \
 "Lab9HMain.o" \
 "LaunchPad.o" \
+"NES - Punch-Out!! - Miscellaneous - Boxing Rings.o" \
 "SPI.o" \
 "ST7735.o" \
 "SlidePot.o" \
@@ -70,7 +96,21 @@ OBJS__QUOTED += \
 "Switch.o" \
 "TExaS.o" \
 "Timer.o" \
-"game_structs.o" 
+"connors_display_helper.o" \
+"game_structs.o" \
+"gameimages.o" \
+"valvano.o" \
+"valvano_rgb565.o" \
+"yerballi.o" \
+"yerballi_rgb565.o" 
+
+C_DEPS__QUOTED += \
+"NES - Punch-Out!! - Miscellaneous - Boxing Rings.d" \
+"gameimages.d" \
+"valvano.d" \
+"valvano_rgb565.d" \
+"yerballi.d" \
+"yerballi_rgb565.d" 
 
 CPP_DEPS__QUOTED += \
 "Clock.d" \
@@ -86,6 +126,7 @@ CPP_DEPS__QUOTED += \
 "Switch.d" \
 "TExaS.d" \
 "Timer.d" \
+"connors_display_helper.d" \
 "game_structs.d" 
 
 CPP_SRCS__QUOTED += \
@@ -102,6 +143,15 @@ CPP_SRCS__QUOTED += \
 "../Switch.cpp" \
 "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/TExaS.cpp" \
 "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/inc/Timer.cpp" \
+"../connors_display_helper.cpp" \
 "../game_structs.cpp" 
+
+C_SRCS__QUOTED += \
+"../NES - Punch-Out!! - Miscellaneous - Boxing Rings.c" \
+"../gameimages.c" \
+"../valvano.c" \
+"../valvano_rgb565.c" \
+"../yerballi.c" \
+"../yerballi_rgb565.c" 
 
 

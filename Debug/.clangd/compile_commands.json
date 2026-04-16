@@ -78,5 +78,45 @@
       "directory" : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug",
       "command"   : "clang++ -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug/syscfg\" -xc++",
       "file"      : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/game_structs.cpp"
+   },
+   {
+      "directory" : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug",
+      "command"   : "clang++ -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug/syscfg\" -xc",
+      "file"      : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/yerballi.c"
+   },
+   {
+      "directory" : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug",
+      "command"   : "clang++ -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug/syscfg\" -xc",
+      "file"      : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/gameimages.c"
+   },
+   {
+      "directory" : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug",
+      "command"   : "clang++ -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug/syscfg\" -xc",
+      "file"      : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/valvano.c"
+   },
+   {
+      "directory" : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug",
+      "command"   : "clang++ -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug/syscfg\" -xc++",
+      "file"      : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/connors_display_helper.cpp"
+   },
+   {
+      "directory" : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug",
+      "command"   : "clang++ -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug/syscfg\" -xc",
+      "file"      : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/NES - Punch-Out!! - Miscellaneous - Boxing Rings.c"
+   },
+   {
+      "directory" : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug",
+      "command"   : "clang++ -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug/syscfg\" -xc",
+      "file"      : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/valvano_rgb565.c"
+   },
+   {
+      "directory" : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug",
+      "command"   : "clang++ -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug/syscfg\" -xc",
+      "file"      : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/yerballi_rgb565.c"
+   },
+   {
+      "directory" : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug",
+      "command"   : "clang++ -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_06_00_05/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2030/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/Debug/syscfg\" -xc",
+      "file"      : "C:/Users/conno/OneDrive/Documents/1_School/UT/319H/ECE319K_Lab9H/valvano_punch.c"
    }
 ]
