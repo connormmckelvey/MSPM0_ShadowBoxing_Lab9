@@ -173,7 +173,7 @@ int main3(void){ // main3
   }
 }
 // use main4 to test sound outputs
-int main4(void){ uint32_t last=0,now;
+int main(void){ uint32_t last=0,now;
   __disable_irq();
   PLL_Init(); // set bus speed
   LaunchPad_Init();
@@ -189,7 +189,7 @@ int main4(void){ uint32_t last=0,now;
   }
 }
 // ALL ST7735 OUTPUT MUST OCCUR IN MAIN
-int main(void){ // final main
+int main5(void){ // final main
   __disable_irq();
   PLL_Init(); // set bus speed
   LaunchPad_Init();
