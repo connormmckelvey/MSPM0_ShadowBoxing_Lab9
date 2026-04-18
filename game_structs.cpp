@@ -64,7 +64,7 @@ void StartState::display(Game* game){
 }
 
 void StartState::play_sound(Game* game){
-    
+
 }
 
 // --- Atk1State ---
@@ -101,11 +101,12 @@ void Atk1State::logic(Game* game) {
 
 void Atk1State::display(Game* game){
     if (first_display) {
+        first_display = false;
         ST7735_FillScreen(0x8BE0);
         ST7735_DrawBitmap(0,BOXING_RING_BG_FRAME_HEIGHT - 5,boxing_ring_bg[0],BOXING_RING_BG_FRAME_WIDTH,BOXING_RING_BG_FRAME_HEIGHT);
-        first_display = false;
     }
-    CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height);
+    int16_t sway_x = 30 + (((round_time / 8) & 1) ? 2 : -2);
+    CDH_DrawBitmapTransparent(sway_x, 115, image, image_width, image_height);
     if(game->language == ENGLISH){
         CDH_DrawString(0, 12, "Combo: 0", ST7735_BLACK, 0x8BE0, 1);
         CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
