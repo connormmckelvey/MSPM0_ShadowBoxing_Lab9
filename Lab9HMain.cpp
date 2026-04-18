@@ -183,20 +183,9 @@ int main4(void){ uint32_t last=0,now;
   TExaS_Init(ADC0,6,0); // ADC1 channel 6 is PB20, TExaS scope
   __enable_irq();
   while(1){
-    now = Switch_In(); // one of your buttons
-    if((last == 0)&&(now == 1)){
-      Sound_Shoot(); // call one of your sounds
-    }
-    if((last == 0)&&(now == 2)){
-      Sound_Killed(); // call one of your sounds
-    }
-    if((last == 0)&&(now == 4)){
-      Sound_Explosion(); // call one of your sounds
-    }
-    if((last == 0)&&(now == 8)){
-      Sound_Fastinvader1(); // call one of your sounds
-    }
-    // modify this to test all your sounds
+    Sound_Miss();
+    Sound_Hit();
+    Sound_Bell();`
   }
 }
 // ALL ST7735 OUTPUT MUST OCCUR IN MAIN
