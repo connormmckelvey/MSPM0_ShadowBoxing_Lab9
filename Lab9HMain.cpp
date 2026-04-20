@@ -186,7 +186,7 @@ int main(void){ uint32_t last=0,now;
   while(1){
     Sound_Miss();
     Sound_Hit();
-    Sound_Bell();`
+    Sound_Bell();
   }
 }
 // ALL ST7735 OUTPUT MUST OCCUR IN MAIN
