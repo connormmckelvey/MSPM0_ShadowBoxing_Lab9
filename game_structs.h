@@ -10,7 +10,7 @@
 #include "../inc/TExaS.h"
 #include "../inc/Timer.h"
 #include "../inc/SlidePot.h"
-#include "../inc/DAC5.h"
+// #include "../inc/DAC5.h"
 #include "SmallFont.h"
 #include "LED.h"
 #include "Switch.h"
@@ -121,6 +121,7 @@ public:
 
 class RoundFeedbackState : public State {
 private:
+    bool isMirrored = false;
     int state_time = 30 * SWITCH_TIME;
 public:
     RoundFeedbackState();

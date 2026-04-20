@@ -25,7 +25,7 @@ void CDH_DrawBitmap2x(int16_t x, int16_t y, const uint16_t* image, int16_t w, in
     }
 }
 
-void CDH_DrawBitmapTransparent(int16_t x, int16_t y, const uint16_t* image, int16_t w, int16_t h, uint16_t transparentColor) {
+void CDH_DrawBitmapTransparent(int16_t x, int16_t y, const uint16_t* image, int16_t w, int16_t h, uint16_t transparentColor, bool flipY, bool flipX){
     if ((image == nullptr) || (w <= 0) || (h <= 0)) {
         return;
     }
@@ -33,9 +33,14 @@ void CDH_DrawBitmapTransparent(int16_t x, int16_t y, const uint16_t* image, int1
     int16_t topY = y - h + 1;
 
     for (int16_t row = 0; row < h; row++) {
-        int16_t srcRow = (h - 1) - row; // matches ST7735_DrawBitmap row convention
+
+        int16_t srcRow = flipY ? row : (h - 1) - row; 
+        
         for (int16_t col = 0; col < w; col++) {
-            uint16_t color = image[(srcRow * w) + col];
+            int16_t srcCol = flipX ? (w - 1) - col : col;
+            
+            uint16_t color = image[(srcRow * w) + srcCol];
+            
             if (color != transparentColor) {
                 ST7735_DrawPixel(x + col, topY + row, color);
             }

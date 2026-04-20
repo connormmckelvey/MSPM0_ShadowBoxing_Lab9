@@ -75,6 +75,7 @@ void StartState::play_sound(Game* game){
 Atk1State::Atk1State(){}
 
 void Atk1State::onEnter(Game* game){
+    Sound_Bell();
     first_display = true;
     round_time = 30 * ROUND_TIME;
     game->prevAttackIndex = 0;
@@ -95,8 +96,10 @@ void Atk1State::logic(Game* game) {
         uint8_t direction_went = game->directions();
         game->prevAttacks[0] = direction_went;
         if (direction_went != (uint8_t)-1) {
+            Sound_Hit();
             game->switchStates(ROUND_FEEDBACK);
         } else {
+            Sound_Miss();
             game->switchStates(SWITCH_OFFENCE);
         }
     }
@@ -132,6 +135,7 @@ Atk2State::Atk2State(){};
 void Atk2State::onEnter(Game* game){
     first_display = true;
     round_time = 30 * ROUND_TIME;
+    Sound_Bell();
     game->prevAttackIndex = 1;
     if (game->attacker == &(game->p1)) {
         image = valvano[0];
@@ -151,8 +155,10 @@ void Atk2State::logic(Game* game) {
         game->prevAttacks[1] = direction_went;
         // if attack was landed!
         if (direction_went != (uint8_t)-1) {
+            Sound_Hit();
             game->switchStates(ROUND_FEEDBACK);
         } else {
+            Sound_Miss();
             game->switchStates(SWITCH_OFFENCE);
         }
     }
@@ -172,7 +178,7 @@ void Atk2State::display(Game* game){
         CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
     }
     else{
-        CDH_DrawString(0, 12, "Tirar un Puñetazo!", ST7735_BLACK, 0x8BE0, 1);
+        CDH_DrawString(0, 12, "Tirar un Punetazo!", ST7735_BLACK, 0x8BE0, 1);
         CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
     }
 }
@@ -188,6 +194,7 @@ void Atk3State::onEnter(Game* game){
     first_display = true;
     round_time = 30 * ROUND_TIME;
     game->prevAttackIndex = 1;
+    Sound_Bell();
     if (game->attacker == &(game->p1)) {
         image = valvano[0];
         image_height = VALVANO_FRAME_HEIGHT;
@@ -204,8 +211,10 @@ void Atk3State::logic(Game* game) {
     if (round_time == 0) {
         uint8_t direction_went = game->directions();
         if (direction_went != (uint8_t)-1) {
+            Sound_Hit();
             game->switchStates(WIN);
         } else {
+            Sound_Miss();
             game->switchStates(SWITCH_OFFENCE);
         }
     }
@@ -351,7 +360,7 @@ void RoundFeedbackState::onEnter(Game* game){
             image = valvano[1];
         }
         else if (game->prevAttacks[game->prevAttackIndex] == LEFT) {
-            image = valvano[2];
+            image = valvano[1];
         }
         // no punch
         else{
@@ -366,7 +375,7 @@ void RoundFeedbackState::onEnter(Game* game){
             image = yerballi[1];
         }
         else if (game->prevAttacks[game->prevAttackIndex] == LEFT) {
-            image = yerballi[2];
+            image = yerballi[1];
         }
         // no punch
         else{
@@ -397,7 +406,12 @@ void RoundFeedbackState::display(Game* game){
         ST7735_DrawBitmap(0,BOXING_RING_BG_FRAME_HEIGHT - 5,boxing_ring_bg[0],BOXING_RING_BG_FRAME_WIDTH,BOXING_RING_BG_FRAME_HEIGHT);
         first_display = false;
     }
-    CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height);
+    if (isMirrored) {
+        CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height, 0xF81F, true);    
+    }
+    else{
+        CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height);
+    }
     if(game->language == ENGLISH){
         CDH_DrawString(0, 12, "Pow!", ST7735_BLACK, 0x8BE0, 1);
     }

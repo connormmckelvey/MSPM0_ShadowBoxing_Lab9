@@ -13,7 +13,7 @@
 #include "../inc/TExaS.h"
 #include "../inc/Timer.h"
 #include "../inc/SlidePot.h"
-#include "../inc/DAC5.h"
+// #include "../inc/DAC5.h"
 #include "SmallFont.h"
 #include "LED.h"
 #include "Switch.h"
@@ -183,10 +183,10 @@ int main4(void){ uint32_t last=0,now;
   Sound_Init();  // initialize sound
   TExaS_Init(ADC0,6,0); // ADC1 channel 6 is PB20, TExaS scope
   __enable_irq();
+  Sound_Bell();
   while(1){
-    Sound_Miss();
-    Sound_Hit();
-    Sound_Bell();
+    //Sound_Hit();
+    //Sound_Bell();
   }
 }
 // ALL ST7735 OUTPUT MUST OCCUR IN MAIN
@@ -200,7 +200,7 @@ int main(void){ // final main
   Sensor.Init(); // PB18 = ADC1 channel 5, slidepot
   Switch_Init(); // initialize switches
   LED_Init();    // initialize LED
-  //Sound_Init();  // initialize sound
+  Sound_Init();  // initialize sound
   TExaS_Init(0,0,&TExaS_LaunchPadLogicPB27PB26); // PB27 and PB26
     // initialize interrupts on TimerG12 at 30 Hz
   TimerG12_IntArm(2666667, 1); //magic number
