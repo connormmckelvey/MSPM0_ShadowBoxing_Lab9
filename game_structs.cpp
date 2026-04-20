@@ -36,17 +36,21 @@ StartState::StartState(){
 
 void StartState::onEnter(Game* game){
     first_display = true;
+    start_cooldown = 10;
 }
 
 void StartState::logic(Game* game) {
-    if (game->button1 == 1) {
-        game->language = ENGLISH;
-        game->switchStates(ATK1);
+    if (start_cooldown < 0) {
+        if (game->button1 == 1) {
+            game->language = ENGLISH;
+            game->switchStates(ATK1);
+        }
+        if (game->button2 == 1) {
+            game->language = SPANISH;
+            game->switchStates(ATK1);
+        }
     }
-    if (game->button2 == 1) {
-        game->language = SPANISH;
-        game->switchStates(ATK1);
-    }
+    start_cooldown--;
 }
 
 void StartState::display(Game* game){
@@ -108,11 +112,11 @@ void Atk1State::display(Game* game){
     int16_t sway_x = 30 + (((round_time / 8) & 1) ? 2 : -2);
     CDH_DrawBitmapTransparent(sway_x, 115, image, image_width, image_height);
     if(game->language == ENGLISH){
-        CDH_DrawString(0, 12, "Combo: 0", ST7735_BLACK, 0x8BE0, 1);
+        CDH_DrawString(0, 12, "Throw a Punch!", ST7735_BLACK, 0x8BE0, 1);
         CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
     }
     else{
-        CDH_DrawString(0, 12, "ATK1", ST7735_BLACK, 0x8BE0, 1);
+        CDH_DrawString(0, 12, "Tirar un Puñetazo!", ST7735_BLACK, 0x8BE0, 1);
         CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
     }
 
@@ -129,15 +133,25 @@ void Atk2State::onEnter(Game* game){
     first_display = true;
     round_time = 30 * ROUND_TIME;
     game->prevAttackIndex = 1;
+    if (game->attacker == &(game->p1)) {
+        image = valvano[0];
+        image_height = VALVANO_FRAME_HEIGHT;
+        image_width = VALVANO_FRAME_WIDTH;
+    }
+    else{
+        image = yerballi[0];
+        image_height = YERBALLI_FRAME_HEIGHT;
+        image_width = YERBALLI_FRAME_WIDTH;    
+    }
 }
 
 void Atk2State::logic(Game* game) {
     if (round_time == 0) {
         uint8_t direction_went = game->directions();
-        // Fixed: was transitioning to ATK2 again instead of ATK3
-        if (direction_went != (uint8_t)-1 && direction_went != game->prevAttacks[0]) {
-            game->prevAttacks[1] = direction_went;
-            game->switchStates(ATK3);
+        game->prevAttacks[1] = direction_went;
+        // if attack was landed!
+        if (direction_went != (uint8_t)-1) {
+            game->switchStates(ROUND_FEEDBACK);
         } else {
             game->switchStates(SWITCH_OFFENCE);
         }
@@ -147,17 +161,20 @@ void Atk2State::logic(Game* game) {
 
 void Atk2State::display(Game* game){
     if (first_display) {
-        ST7735_FillScreen(ST7735_GREEN);
         first_display = false;
+        ST7735_FillScreen(0x8BE0);
+        ST7735_DrawBitmap(0,BOXING_RING_BG_FRAME_HEIGHT - 5,boxing_ring_bg[0],BOXING_RING_BG_FRAME_WIDTH,BOXING_RING_BG_FRAME_HEIGHT);
     }
-    // if (game->attacker == &game->p1) {
-    //     image = RED_PUNCHES_BLUE_IMAGE;
-    // }
-    // else{
-    //     image = RED_PUNCHES_BLUE_IMAGE;
-    // }
-    // ST7735_DrawBitmap(0, 0, image, 160, 128);
-        ST7735_DrawString(0, 0, "ATK2", ST7735_WHITE);
+    int16_t sway_x = 30 + (((round_time / 8) & 1) ? 2 : -2);
+    CDH_DrawBitmapTransparent(sway_x, 115, image, image_width, image_height);
+    if(game->language == ENGLISH){
+        CDH_DrawString(0, 12, "Throw a Punch!", ST7735_BLACK, 0x8BE0, 1);
+        CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
+    }
+    else{
+        CDH_DrawString(0, 12, "Tirar un Puñetazo!", ST7735_BLACK, 0x8BE0, 1);
+        CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
+    }
 }
 
 void Atk2State::play_sound(Game* game){
@@ -170,14 +187,23 @@ Atk3State::Atk3State(){};
 void Atk3State::onEnter(Game* game){
     first_display = true;
     round_time = 30 * ROUND_TIME;
+    game->prevAttackIndex = 1;
+    if (game->attacker == &(game->p1)) {
+        image = valvano[0];
+        image_height = VALVANO_FRAME_HEIGHT;
+        image_width = VALVANO_FRAME_WIDTH;
+    }
+    else{
+        image = yerballi[0];
+        image_height = YERBALLI_FRAME_HEIGHT;
+        image_width = YERBALLI_FRAME_WIDTH;    
+    }
 }
 
 void Atk3State::logic(Game* game) {
     if (round_time == 0) {
         uint8_t direction_went = game->directions();
-        if (direction_went != (uint8_t)-1
-            && direction_went != game->prevAttacks[0]
-            && direction_went != game->prevAttacks[1]) {
+        if (direction_went != (uint8_t)-1) {
             game->switchStates(WIN);
         } else {
             game->switchStates(SWITCH_OFFENCE);
@@ -188,17 +214,20 @@ void Atk3State::logic(Game* game) {
 
 void Atk3State::display(Game* game){
     if (first_display) {
-        ST7735_FillScreen(ST7735_GREEN);
         first_display = false;
+        ST7735_FillScreen(0x8BE0);
+        ST7735_DrawBitmap(0,BOXING_RING_BG_FRAME_HEIGHT - 5,boxing_ring_bg[0],BOXING_RING_BG_FRAME_WIDTH,BOXING_RING_BG_FRAME_HEIGHT);
     }
-    // if (game->attacker == &game->p1) {
-    //     image = RED_PUNCHES_BLUE_IMAGE;
-    // }
-    // else{
-    //     image = RED_PUNCHES_BLUE_IMAGE;
-    // }
-    // ST7735_DrawBitmap(0, 0, image, 160, 128);
-        ST7735_DrawString(0, 0, "ATK3", ST7735_WHITE);
+    int16_t sway_x = 30 + (((round_time / 8) & 1) ? 2 : -2);
+    CDH_DrawBitmapTransparent(sway_x, 115, image, image_width, image_height);
+    if(game->language == ENGLISH){
+        CDH_DrawString(0, 12, "Throw a Punch!", ST7735_BLACK, 0x8BE0, 1);
+        CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
+    }
+    else{
+        CDH_DrawString(0, 12, "Tirar un Puñetazo!", ST7735_BLACK, 0x8BE0, 1);
+        CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
+    }
 }
 
 void Atk3State::play_sound(Game* game){
@@ -207,23 +236,47 @@ void Atk3State::play_sound(Game* game){
 
 // --- WinState ---
 WinState::WinState(){};
-
 void WinState::onEnter(Game* game){
-    first_display = true;
+    ST7735_FillScreen(0x8BE0);
+    if (game->language == ENGLISH) {
+        //yerballi attacking valvano
+        if (game->attacker == &(game->p1)) {
+            CDH_DrawString(0, 2, "Yerballi", ST7735_BLACK,0x8BE0,2);
+            CDH_DrawString(0, 4, "is the ", ST7735_BLACK,0x8BE0,2);
+            CDH_DrawString(0, 6, "Victor!", ST7735_BLACK,0x8BE0,2);           
+        }
+        else{
+            CDH_DrawString(0, 2, "Valvano", ST7735_BLACK,0x8BE0,2);
+            CDH_DrawString(0, 4, "is the ", ST7735_BLACK,0x8BE0,2);
+            CDH_DrawString(0, 6, "Victor!", ST7735_BLACK,0x8BE0,2); 
+        }
+        CDH_DrawString(0, 11, "Press any Button!", ST7735_WHITE,0x8BE0,1 );
+    }
+    else{
+        if (game->attacker == &(game->p1)) {
+            CDH_DrawString(0, 2, "Yerballi", ST7735_BLACK,0x8BE0,2);
+            CDH_DrawString(0, 4, "es el ", ST7735_BLACK,0x8BE0,2);
+            CDH_DrawString(0, 6, "Victor!", ST7735_BLACK,0x8BE0,2);           
+        }
+        else{
+            CDH_DrawString(0, 2, "Valvano", ST7735_BLACK,0x8BE0,2);
+            CDH_DrawString(0, 4, "es el ", ST7735_BLACK,0x8BE0,2);
+            CDH_DrawString(0, 6, "Victor!", ST7735_BLACK,0x8BE0,2); 
+        }
+        CDH_DrawString(0, 11, "Presione cualquier boton.", ST7735_WHITE,0x8BE0,1);
+    }
+
 }
 
 void WinState::logic(Game* game) {
-    if (game->button1 == 1) {
+    if (game->button1 == 1 || game->button1 == 1) {
         game->switchStates(START);
+        game->prevAttackIndex = 0;
     }
 }
 
 void WinState::display(Game* game){
-    if (first_display) {
-        ST7735_FillScreen(ST7735_GREEN);
-        first_display = false;
-    }
-        ST7735_DrawString(0, 0, "WIN", ST7735_WHITE);
+    return;
 }
 
 void WinState::play_sound(Game* game){
@@ -272,11 +325,12 @@ void SwitchOffenceState::display(Game* game){
     }
     CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height);
     if(game->language == ENGLISH){
-        CDH_DrawString(0, 12, "Blocked!", ST7735_BLACK, 0x8BE0, 1);
-        CDH_DrawString(14, 7, "!", ST7735_BLACK, 0x8BE0,3);
+        CDH_DrawString(0, 12, "Switching Offence!", ST7735_BLACK, 0x8BE0, 1);
+        CDH_DrawString(11, 7, "MISS!", ST7735_BLACK, 0x8BE0,3);
     }
     else{
-        CDH_DrawString(0, 12, "ATK1", ST7735_BLACK, 0x8BE0, 1);
+        CDH_DrawString(0, 12, "Atacante cambiante!", ST7735_BLACK, 0x8BE0, 1);
+        CDH_DrawString(11, 7, "Extrañar!", ST7735_BLACK, 0x8BE0,3);
     }
 }
 
@@ -345,11 +399,17 @@ void RoundFeedbackState::display(Game* game){
     }
     CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height);
     if(game->language == ENGLISH){
-        CDH_DrawString(0, 12, "Prepare for Next Round!", ST7735_BLACK, 0x8BE0, 1);
-        CDH_DrawString(12, 7, "AH!", ST7735_BLACK, 0x8BE0,3);
+        CDH_DrawString(0, 12, "Pow!", ST7735_BLACK, 0x8BE0, 1);
     }
     else{
-        CDH_DrawString(0, 12, "ATK1", ST7735_BLACK, 0x8BE0, 1);
+        CDH_DrawString(0, 12, "Ach!", ST7735_BLACK, 0x8BE0, 1);
+    }
+    if (game->prevAttacks[game->prevAttackIndex] == RIGHT) {
+        CDH_DrawString(12, 7, ">", ST7735_BLACK, 0x8BE0,3);
+    }
+    //left punch
+    else{
+        CDH_DrawString(12, 7, "<", ST7735_BLACK, 0x8BE0,3);
     }
 }
 
@@ -364,6 +424,7 @@ void Game::init() {
     states[ATK2]          = &atk2_s;
     states[ATK3]          = &atk3_s;
     states[WIN]           = &win_s;
+    states[ROUND_FEEDBACK]= &round_feedback_s;
     states[SWITCH_OFFENCE] = &switch_offence_s;
 
     current_state = states[START];
@@ -385,7 +446,7 @@ void Game::updateState() {
 
 //takes member vars and computes if both went the same direction, if they did it returns 0,1,2,3 if they didnt it returns -1
 uint8_t Game::directions(){
-    return -1;
+    return 1;
 }
 
 bool Game::switchStates(int state_index){

@@ -9,6 +9,7 @@
 #include "sounds/sounds.h"
 #include "../inc/DAC5.h"
 #include "../inc/Timer.h"
+#include "../inc/LaunchPad.h"
 
 const uint8_t* SoundArr;
 uint32_t SoundCount;

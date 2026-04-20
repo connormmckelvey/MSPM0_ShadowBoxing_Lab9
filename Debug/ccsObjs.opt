@@ -8,7 +8,6 @@
 "./ST7735.o"
 "./SlidePot.o"
 "./SmallFont.o"
-"./Sound.o"
 "./Switch.o"
 "./TExaS.o"
 "./Timer.o"

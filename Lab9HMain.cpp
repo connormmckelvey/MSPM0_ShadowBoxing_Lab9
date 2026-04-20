@@ -174,7 +174,7 @@ int main3(void){ // main3
   }
 }
 // use main4 to test sound outputs
-int main(void){ uint32_t last=0,now;
+int main4(void){ uint32_t last=0,now;
   __disable_irq();
   PLL_Init(); // set bus speed
   LaunchPad_Init();
@@ -186,11 +186,11 @@ int main(void){ uint32_t last=0,now;
   while(1){
     Sound_Miss();
     Sound_Hit();
-    Sound_Bell();`
+    Sound_Bell();
   }
 }
 // ALL ST7735 OUTPUT MUST OCCUR IN MAIN
-int main5(void){ // final main
+int main(void){ // final main
   __disable_irq();
   PLL_Init(); // set bus speed
   LaunchPad_Init();
@@ -200,7 +200,7 @@ int main5(void){ // final main
   Sensor.Init(); // PB18 = ADC1 channel 5, slidepot
   Switch_Init(); // initialize switches
   LED_Init();    // initialize LED
-  Sound_Init();  // initialize sound
+  //Sound_Init();  // initialize sound
   TExaS_Init(0,0,&TExaS_LaunchPadLogicPB27PB26); // PB27 and PB26
     // initialize interrupts on TimerG12 at 30 Hz
   TimerG12_IntArm(2666667, 1); //magic number

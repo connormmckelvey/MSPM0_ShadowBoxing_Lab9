@@ -50,6 +50,7 @@ public:
     int image_height;
     char* wav_filepath;
     bool first_display = true;
+    int start_cooldown = 10;
 
     virtual void onEnter(Game* game);
     virtual void logic(Game* game);
@@ -140,6 +141,7 @@ private:
     Atk2State atk2_s;
     Atk3State atk3_s;
     WinState win_s;
+    RoundFeedbackState round_feedback_s;
     SwitchOffenceState switch_offence_s;
 public:
     int language; // 0 for english, 1 for spanish
