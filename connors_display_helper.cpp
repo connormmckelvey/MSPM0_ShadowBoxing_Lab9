@@ -64,7 +64,7 @@ uint32_t CDH_DrawString(uint16_t x, uint16_t y, char *pt, int16_t textColor, int
   while(*pt){
     ST7735_DrawCharS(x*6, y*10, *pt, textColor, bgColor, size);
     pt++;
-    x = x+1;
+    x = x+size;
     if(x>20) return count;  // number of characters printed
     count++;
   }

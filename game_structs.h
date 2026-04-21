@@ -7,15 +7,9 @@
 #include "../inc/ST7735.h"
 #include "../inc/Clock.h"
 #include "../inc/LaunchPad.h"
-#include "../inc/TExaS.h"
 #include "../inc/Timer.h"
-#include "../inc/SlidePot.h"
-// #include "../inc/DAC5.h"
 #include "SmallFont.h"
-#include "LED.h"
-#include "Switch.h"
 #include "Sound.h"
-#include "images/images.h"
 
 #define ROUND_TIME 5 // in secs
 #define SWITCH_TIME 5
@@ -55,7 +49,6 @@ public:
     virtual void onEnter(Game* game);
     virtual void logic(Game* game);
     virtual void display(Game* game);
-    virtual void play_sound(Game* game);
 };
 
 class StartState : public State {
@@ -64,7 +57,6 @@ public:
     void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
-    void play_sound(Game* game) override;
 };
 
 class Atk1State : public State {
@@ -75,7 +67,7 @@ public:
     void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
-    void play_sound(Game* game) override;};
+};
 
 class Atk2State : public State {
 private:
@@ -85,7 +77,6 @@ Atk2State();
 void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
-    void play_sound(Game* game) override;
 };
 
 class Atk3State : public State {
@@ -96,7 +87,6 @@ public:
     void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
-    void play_sound(Game* game) override;
 };
 
 class WinState : public State {
@@ -105,7 +95,6 @@ public:
     void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
-    void play_sound(Game* game) override;
 };
 
 class SwitchOffenceState : public State {
@@ -116,7 +105,6 @@ public:
     void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
-    void play_sound(Game* game) override;
 };
 
 class RoundFeedbackState : public State {
@@ -128,7 +116,6 @@ public:
     void onEnter(Game* game) override;
     void logic(Game* game) override;
     void display(Game* game) override;
-    void play_sound(Game* game) override;
 };
 
 class Player {

@@ -4,13 +4,14 @@
 #include "../inc/Clock.h"
 #include "../inc/LaunchPad.h"
 #include "Sound.h"
+#include "accel_read.h"
 
 extern "C" {
   void __disable_irq(void);
 }
 
-#define LEFT   1
-#define RIGHT  2
+#define LEFT   0
+#define RIGHT  1
 #define THRESH 700
 
 int32_t REST_P1, REST_P2;
@@ -18,8 +19,6 @@ int32_t r1, r2;
 int32_t last_gesture;
 int32_t match;
 int8_t d1 = -1, d2 = -1;
-
-void PLL_Init(void){ Clock_Init80MHz(0); }
 
 
 //adc 0 is on PB20
@@ -112,32 +111,4 @@ int32_t GetMatch(void){
   }
 
   return d1 != d2;
-}
-
-//main one for testing the reading of the acceleromaters
-int main1S(void){
-  __disable_irq();
-  PLL_Init();
-  LaunchPad_Init();
-  ADC0_Init();
-  ADC1_Init();
-  Calibrate();
-
-  while(1){
-    ADC_ReadBoth(&r1, &r2);
-    ReadDirections();
-  }
-}
-
-//main2 for testing the sounds
-int main2S(void){
-  __disable_irq();
-  PLL_Init(); // set bus speed
-  LaunchPad_Init();
-
-  while(1){
-    Sound_Miss();
-    Sound_Hit();
-    Sound_Bell();
-  }
 }

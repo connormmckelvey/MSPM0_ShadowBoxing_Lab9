@@ -20,17 +20,11 @@ ORDERED_OBJS += \
 "./SlidePot.o" \
 "./SmallFont.o" \
 "./Sound.o" \
-"./Switch.o" \
-"./TExaS.o" \
 "./Timer.o" \
+"./accel_read.o" \
 "./connors_display_helper.o" \
 "./game_structs.o" \
 "./gameimages.o" \
-"./valvano.o" \
-"./valvano_punch.o" \
-"./valvano_rgb565.o" \
-"./yerballi.o" \
-"./yerballi_rgb565.o" \
 "./images/pipedreams/PipeSound.o" \
 "./ticlang/startup_mspm0g3507_ticlang.o" \
 "../mspm0g3507.cmd" \
@@ -164,9 +158,9 @@ ECE319K_Lab9H.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "Clock.o" "LED.o" "Lab9HMain.o" "LaunchPad.o" "NES - Punch-Out!! - Miscellaneous - Boxing Rings.o" "SPI.o" "ST7735.o" "SlidePot.o" "SmallFont.o" "Sound.o" "Switch.o" "TExaS.o" "Timer.o" "connors_display_helper.o" "game_structs.o" "gameimages.o" "valvano.o" "valvano_punch.o" "valvano_rgb565.o" "yerballi.o" "yerballi_rgb565.o" "images\pipedreams\PipeSound.o" "ticlang\startup_mspm0g3507_ticlang.o" 
-	-$(RM) "NES - Punch-Out!! - Miscellaneous - Boxing Rings.d" "gameimages.d" "valvano.d" "valvano_punch.d" "valvano_rgb565.d" "yerballi.d" "yerballi_rgb565.d" "images\pipedreams\PipeSound.d" "ticlang\startup_mspm0g3507_ticlang.d" 
-	-$(RM) "Clock.d" "LED.d" "Lab9HMain.d" "LaunchPad.d" "SPI.d" "ST7735.d" "SlidePot.d" "SmallFont.d" "Sound.d" "Switch.d" "TExaS.d" "Timer.d" "connors_display_helper.d" "game_structs.d" 
+	-$(RM) "Clock.o" "LED.o" "Lab9HMain.o" "LaunchPad.o" "NES - Punch-Out!! - Miscellaneous - Boxing Rings.o" "SPI.o" "ST7735.o" "SlidePot.o" "SmallFont.o" "Sound.o" "Timer.o" "accel_read.o" "connors_display_helper.o" "game_structs.o" "gameimages.o" "images\pipedreams\PipeSound.o" "ticlang\startup_mspm0g3507_ticlang.o" 
+	-$(RM) "NES - Punch-Out!! - Miscellaneous - Boxing Rings.d" "gameimages.d" "images\pipedreams\PipeSound.d" "ticlang\startup_mspm0g3507_ticlang.d" 
+	-$(RM) "Clock.d" "LED.d" "Lab9HMain.d" "LaunchPad.d" "SPI.d" "ST7735.d" "SlidePot.d" "SmallFont.d" "Sound.d" "Timer.d" "accel_read.d" "connors_display_helper.d" "game_structs.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

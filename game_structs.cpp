@@ -4,6 +4,7 @@
 #include "gameimages.c"
 #include "../inc/LaunchPad.h"
 #include "connors_display_helper.h"
+#include "accel_read.h"
 
 // --- State ---
 
@@ -22,10 +23,6 @@ void State::display(Game* game){
     ST7735_DrawBitmap(0, 0, image, 0, 10);
 }
 
-void State::play_sound(Game* game){
-    // play the sound at wav_filepath
-}
-
 
 // --- StartState ---
 StartState::StartState(){
@@ -37,11 +34,12 @@ StartState::StartState(){
 void StartState::onEnter(Game* game){
     first_display = true;
     start_cooldown = 10;
+    Calibrate();
 }
 
 void StartState::logic(Game* game) {
     if (start_cooldown < 0) {
-        if (game->button1 == 1) {
+        if (game->button1 =! 1) {
             game->language = ENGLISH;
             game->switchStates(ATK1);
         }
@@ -65,10 +63,6 @@ void StartState::display(Game* game){
     CDH_DrawBitmap2x(-10, 100, image, image_width, image_height);
     ST7735_DrawString(0, 11, "Press S1 for English", ST7735_WHITE);
     ST7735_DrawString(0, 12, "Press S2 for Espanol", ST7735_WHITE);
-}
-
-void StartState::play_sound(Game* game){
-
 }
 
 // --- Atk1State ---
@@ -102,6 +96,7 @@ void Atk1State::logic(Game* game) {
             Sound_Miss();
             game->switchStates(SWITCH_OFFENCE);
         }
+        return;
     }
     round_time--;
 }
@@ -122,10 +117,6 @@ void Atk1State::display(Game* game){
         CDH_DrawString(0, 12, "Tirar un Puñetazo!", ST7735_BLACK, 0x8BE0, 1);
         CDH_OutUDec(18, 7, round_time/30, ST7735_BLACK, 0x8BE0, 4);
     }
-
-}
-
-void Atk1State::play_sound(Game* game){
 
 }
 
@@ -183,10 +174,6 @@ void Atk2State::display(Game* game){
     }
 }
 
-void Atk2State::play_sound(Game* game){
-    
-}
-
 // --- Atk3State ---
 Atk3State::Atk3State(){};
 
@@ -239,10 +226,6 @@ void Atk3State::display(Game* game){
     }
 }
 
-void Atk3State::play_sound(Game* game){
-    
-}
-
 // --- WinState ---
 WinState::WinState(){};
 void WinState::onEnter(Game* game){
@@ -278,7 +261,7 @@ void WinState::onEnter(Game* game){
 }
 
 void WinState::logic(Game* game) {
-    if (game->button1 == 1 || game->button1 == 1) {
+    if (game->button1 == 1 || game->button2 == 1) {
         game->switchStates(START);
         game->prevAttackIndex = 0;
     }
@@ -286,10 +269,6 @@ void WinState::logic(Game* game) {
 
 void WinState::display(Game* game){
     return;
-}
-
-void WinState::play_sound(Game* game){
-    
 }
 
 // --- SwitchOffenceState ---
@@ -316,8 +295,10 @@ void SwitchOffenceState::logic(Game* game) {
         state_time--;
     } else {
         if (game->attacker == &game->p1) {
+            ST7735_SetRotation(3);
             game->attacker = &game->p2;
         } else {
+            ST7735_SetRotation(1);
             game->attacker = &game->p1;
         }
         game->prevAttacks[0] = 0;
@@ -339,12 +320,8 @@ void SwitchOffenceState::display(Game* game){
     }
     else{
         CDH_DrawString(0, 12, "Atacante cambiante!", ST7735_BLACK, 0x8BE0, 1);
-        CDH_DrawString(11, 7, "Extrañar!", ST7735_BLACK, 0x8BE0,3);
+        CDH_DrawString(11, 7, "Extrañar!", ST7735_BLACK, 0x8BE0,1);
     }
-}
-
-void SwitchOffenceState::play_sound(Game* game){
-    
 }
 
 // --- RoundFeedback ---
@@ -427,10 +404,6 @@ void RoundFeedbackState::display(Game* game){
     }
 }
 
-void RoundFeedbackState::play_sound(Game* game){
-    
-}
-
 // --- Game ---
 void Game::init() {
     states[START]         = &start_s;
@@ -446,6 +419,10 @@ void Game::init() {
 
     IOMUX->SECCFG.PINCM[PB21INDEX] = 0x00040081;
     IOMUX->SECCFG.PINCM[PB18INDEX] = 0x00040081;
+
+    Sound_Init();
+    ADC0_Init();
+    ADC1_Init();
 }
 
 //gets input from various hardware and stores in member vars in the Game class
@@ -460,7 +437,15 @@ void Game::updateState() {
 
 //takes member vars and computes if both went the same direction, if they did it returns 0,1,2,3 if they didnt it returns -1
 uint8_t Game::directions(){
-    return 1;
+    if (d1 == d2) {
+        return -1;
+    };
+    if (attacker == &p1 && d1 != -1){
+        return d1;
+    }
+    else{
+        return d2;
+    }
 }
 
 bool Game::switchStates(int state_index){
