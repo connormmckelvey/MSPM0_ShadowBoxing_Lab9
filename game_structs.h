@@ -11,13 +11,22 @@
 #include "SmallFont.h"
 #include "Sound.h"
 
-#define BUTTON1_INDEX PB18INDEX
-#define BUTTON2_INDEX PB21INDEX
+#define BUTTON1_INDEX PB19INDEX
+#define BUTTON2_INDEX PB13INDEX
+#define BUTTON3_INDEX PB7INDEX
 
-#define ROUND_TIME_1 5 // in secs
-#define ROUND_TIME_2 3 // in secs
-#define ROUND_TIME_3 2 // in secs
-#define SWITCH_TIME 5
+// amt countdown
+#define ROUND_TIME_1 4
+#define ROUND_TIME_2 4
+#define ROUND_TIME_3 4 
+
+// countdown speed
+#define ROUND_SPEED_1 30 
+#define ROUND_SPEED_2 25 
+#define ROUND_SPEED_3 20
+
+#define FEEDBACK_TIME 2
+#define SWITCH_TIME 3 // seconds
 
 #define ENGLISH 0
 #define SPANISH 1
@@ -67,6 +76,7 @@ public:
 class Atk1State : public State {
 private:
     int round_time = ROUND_TIME_1 * 30;
+    int prev;
 public:
     Atk1State();
     void onEnter(Game* game) override;
@@ -77,6 +87,7 @@ public:
 class Atk2State : public State {
 private:
     int round_time = ROUND_TIME_2 * 30;
+    int prev;
 public:
 Atk2State();
 void onEnter(Game* game) override;
@@ -87,6 +98,7 @@ void onEnter(Game* game) override;
 class Atk3State : public State {
 private:
     int round_time = ROUND_TIME_3 * 30;
+    int prev;
 public:
     Atk3State();
     void onEnter(Game* game) override;
@@ -142,6 +154,7 @@ public:
     bool playing;
     int button1 = 0;
     int button2 = 0;
+    int button3 = 0;
     State* current_state;
     uint8_t prevAttackIndex = 0;
     uint8_t prevAttacks[2];

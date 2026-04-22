@@ -30,5 +30,6 @@ void Sound_Start(const uint8_t *pt, uint32_t count);
 void Sound_Miss(void);
 void Sound_Hit(void);
 void Sound_Bell(void);
+void Sound_Tick(void);
 
 #endif
