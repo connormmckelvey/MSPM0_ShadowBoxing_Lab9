@@ -71,7 +71,7 @@ Atk1State::Atk1State(){}
 void Atk1State::onEnter(Game* game){
     Sound_Bell();
     first_display = true;
-    round_time = 30 * ROUND_TIME;
+    round_time = 30 * ROUND_TIME_1;
     game->prevAttackIndex = 0;
     if (game->attacker == &(game->p1)) {
         image = valvano[0];
@@ -125,7 +125,7 @@ Atk2State::Atk2State(){};
 
 void Atk2State::onEnter(Game* game){
     first_display = true;
-    round_time = 30 * ROUND_TIME;
+    round_time = 30 * ROUND_TIME_2;
     Sound_Bell();
     game->prevAttackIndex = 1;
     if (game->attacker == &(game->p1)) {
@@ -179,7 +179,7 @@ Atk3State::Atk3State(){};
 
 void Atk3State::onEnter(Game* game){
     first_display = true;
-    round_time = 30 * ROUND_TIME;
+    round_time = 30 * ROUND_TIME_3;
     game->prevAttackIndex = 1;
     Sound_Bell();
     if (game->attacker == &(game->p1)) {
@@ -229,6 +229,16 @@ void Atk3State::display(Game* game){
 // --- WinState ---
 WinState::WinState(){};
 void WinState::onEnter(Game* game){
+}
+
+void WinState::logic(Game* game) {
+    if (game->button1 == 1 || game->button2 == 1) {
+        game->switchStates(START);
+        game->prevAttackIndex = 0;
+    }
+}
+
+void WinState::display(Game* game){
     ST7735_FillScreen(0x8BE0);
     if (game->language == ENGLISH) {
         //yerballi attacking valvano
@@ -257,18 +267,6 @@ void WinState::onEnter(Game* game){
         }
         CDH_DrawString(0, 11, "Presione cualquier boton.", ST7735_WHITE,0x8BE0,1);
     }
-
-}
-
-void WinState::logic(Game* game) {
-    if (game->button1 == 1 || game->button2 == 1) {
-        game->switchStates(START);
-        game->prevAttackIndex = 0;
-    }
-}
-
-void WinState::display(Game* game){
-    return;
 }
 
 // --- SwitchOffenceState ---
@@ -316,11 +314,11 @@ void SwitchOffenceState::display(Game* game){
     CDH_DrawBitmapTransparent(30, 115, image, image_width, image_height);
     if(game->language == ENGLISH){
         CDH_DrawString(0, 12, "Switching Offence!", ST7735_BLACK, 0x8BE0, 1);
-        CDH_DrawString(11, 7, "MISS!", ST7735_BLACK, 0x8BE0,3);
+        CDH_DrawString(11, 7, "MISS!", ST7735_BLACK, 0x8BE0,2);
     }
     else{
         CDH_DrawString(0, 12, "Atacante cambiante!", ST7735_BLACK, 0x8BE0, 1);
-        CDH_DrawString(11, 7, "Extrañar!", ST7735_BLACK, 0x8BE0,1);
+        CDH_DrawString(11, 7, "Extranar!", ST7735_BLACK, 0x8BE0,1);
     }
 }
 
@@ -396,11 +394,20 @@ void RoundFeedbackState::display(Game* game){
         CDH_DrawString(0, 12, "Ach!", ST7735_BLACK, 0x8BE0, 1);
     }
     if (game->prevAttacks[game->prevAttackIndex] == RIGHT) {
-        CDH_DrawString(12, 7, ">", ST7735_BLACK, 0x8BE0,3);
+        CDH_DrawString(15, 7, ">", ST7735_BLACK, 0x8BE0,3);
     }
     //left punch
     else{
-        CDH_DrawString(12, 7, "<", ST7735_BLACK, 0x8BE0,3);
+        CDH_DrawString(15, 7, "<", ST7735_BLACK, 0x8BE0,3);
+    }
+    if (game->prevAttackIndex > 0) {
+        if (game->prevAttacks[game->prevAttackIndex - 1] == RIGHT) {
+            CDH_DrawString(12, 7, ">", ST7735_BLACK, 0x8BE0,3);
+        }
+        //left punch
+        else{
+            CDH_DrawString(12, 7, "<", ST7735_BLACK, 0x8BE0,3);
+        }        
     }
 }
 
@@ -417,8 +424,8 @@ void Game::init() {
     current_state = states[START];
     attacker = &p1;
 
-    IOMUX->SECCFG.PINCM[PB21INDEX] = 0x00040081;
-    IOMUX->SECCFG.PINCM[PB18INDEX] = 0x00040081;
+    IOMUX->SECCFG.PINCM[BUTTON1_INDEX] = 0x00040081;
+    IOMUX->SECCFG.PINCM[BUTTON2_INDEX] = 0x00040081;
 
     Sound_Init();
     ADC0_Init();

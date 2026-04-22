@@ -11,7 +11,12 @@
 #include "SmallFont.h"
 #include "Sound.h"
 
-#define ROUND_TIME 5 // in secs
+#define BUTTON1_INDEX PB18INDEX
+#define BUTTON2_INDEX PB21INDEX
+
+#define ROUND_TIME_1 5 // in secs
+#define ROUND_TIME_2 3 // in secs
+#define ROUND_TIME_3 2 // in secs
 #define SWITCH_TIME 5
 
 #define ENGLISH 0
@@ -61,7 +66,7 @@ public:
 
 class Atk1State : public State {
 private:
-    int round_time = ROUND_TIME * 30;
+    int round_time = ROUND_TIME_1 * 30;
 public:
     Atk1State();
     void onEnter(Game* game) override;
@@ -71,7 +76,7 @@ public:
 
 class Atk2State : public State {
 private:
-    int round_time = ROUND_TIME * 30;
+    int round_time = ROUND_TIME_2 * 30;
 public:
 Atk2State();
 void onEnter(Game* game) override;
@@ -81,7 +86,7 @@ void onEnter(Game* game) override;
 
 class Atk3State : public State {
 private:
-    int round_time = ROUND_TIME * 30;
+    int round_time = ROUND_TIME_3 * 30;
 public:
     Atk3State();
     void onEnter(Game* game) override;
